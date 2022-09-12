@@ -8,42 +8,54 @@ class App extends React.Component {
     super();
     this.state = {
       monster: [],
+      searchField: "",
     };
   }
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json() )
-    .then((users) => this.setState( 
-    ()=>{
-      return {monster:users}//now monster points to user and have all of its properties
-    },
-    ()=>{
-      console.log(this.state); //callback function 
-    }))
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(
+          () => {
+            return { monster: users }; //now monster points to user and have all of its properties
+          },
+          () => {
+            console.log(this.state); //callback function
+          }
+        )
+      );
   }
+  // -------search function--------------
+  onSearch=(event) => {
+            const searchField = event.target.value.toLocaleLowerCase(); //takes the written value from the search box
+            this.setState(() => {
+              return { searchField: searchField };
+            });
+          }
   // ---------------------
   render() {
+    // destructuring 
+    const {monster,searchField}=this.state;
+    const {onSearch}=this;
+
+    const filteredMonster =monster.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField);
+    });
+
     return (
       <div className="App">
+        {/* search box */}
+        <input
+          className="search-box"
+          type="search"
+          placeholder="search monsters"
+          onChange={onSearch} //using this key word because now onSearch is considered as a method to the main class
+        />
+        {/* --------- */}
 
-     {/* search box */}
-      <input className="search-box" type='search' placeholder="search monsters"
-      onChange={(event)=>{
-        console.log(event.target.value);
-        // let searchedMoster=event.target.value;
-        const filteredMonster = this.state.monster.filter((monster)=>{
-          return monster.name.includes(event.target.value);
-        })
-        this.setState(()=>{
-          return {monster:filteredMonster};
-        })
-      }}
-      />
-      {/* --------- */}
-
-        {this.state.monster.map((monsterName) => {
+        {filteredMonster.map((monsterName) => {
           return (
-            <div key={this.state.monster.id}>
+            <div key={monster.id}>
               <h1>{monsterName.name}</h1>
               <h1>{monsterName.id}</h1>
             </div>
