@@ -1,6 +1,7 @@
 import { component } from "react";
 import React from "react";
-// import logo from "./logo.svg";
+import CardList from "./components/card-list/card-list.component";
+import SearchBox from "./components/search-box/search-box.component";
 import "./App.css";
 
 class App extends React.Component {
@@ -26,41 +27,30 @@ class App extends React.Component {
       );
   }
   // -------search function--------------
-  onSearch=(event) => {
-            const searchField = event.target.value.toLocaleLowerCase(); //takes the written value from the search box
-            this.setState(() => {
-              return { searchField: searchField };
-            });
-          }
+  onSearch = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase(); //takes the written value from the search box
+    this.setState(() => {
+      return { searchField: searchField };
+    });
+  };
   // ---------------------
   render() {
-    // destructuring 
-    const {monster,searchField}=this.state;
-    const {onSearch}=this;
+    // destructuring
+    const { monster, searchField } = this.state;
+    const { onSearch } = this;
 
-    const filteredMonster =monster.filter((monster) => {
+    const filteredMonster = monster.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
     });
 
     return (
       <div className="App">
-        {/* search box */}
-        <input
+        <SearchBox
+          onchangeHandler={onSearch}
+          placeholder="search monster"
           className="search-box"
-          type="search"
-          placeholder="search monsters"
-          onChange={onSearch} //using this key word because now onSearch is considered as a method to the main class
         />
-        {/* --------- */}
-
-        {filteredMonster.map((monsterName) => {
-          return (
-            <div key={monster.id}>
-              <h1>{monsterName.name}</h1>
-              <h1>{monsterName.id}</h1>
-            </div>
-          );
-        })}
+        <CardList monsters={filteredMonster} />
       </div>
     );
   }

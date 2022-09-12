@@ -1,0 +1,4 @@
+component class name must start with capital letters so thant react
+knows its a component;
+
+when using .component the 'c' must be in capital 'C';
