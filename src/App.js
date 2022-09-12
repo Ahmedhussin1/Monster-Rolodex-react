@@ -7,24 +7,29 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      monster:[
-        {name:'linda'},
-        {name:'frank'},
-        {name:'jacky'},
-      ]
+      monster: [],
     };
   }
-// ---------------------
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json() )
+    .then((users) => console.log(users))
+  }
+  // ---------------------
   render() {
     return (
       <div className="App">
-        {this.state.monster.map((monster)=>{
-          return <h1>{monster.name}</h1>;
+        {this.state.monster.map((monsterName) => {
+          return (
+            <div key={this.state.monster.id}>
+              <h1>{monsterName.name}</h1>
+            </div>
+          );
         })}
       </div>
     );
   }
-// -----------------------
+  // -----------------------
 }
 
 export default App;
