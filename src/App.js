@@ -25,6 +25,22 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+
+     {/* search box */}
+      <input className="search-box" type='search' placeholder="search monsters"
+      onChange={(event)=>{
+        console.log(event.target.value);
+        // let searchedMoster=event.target.value;
+        const filteredMonster = this.state.monster.filter((monster)=>{
+          return monster.name.includes(event.target.value);
+        })
+        this.setState(()=>{
+          return {monster:filteredMonster};
+        })
+      }}
+      />
+      {/* --------- */}
+
         {this.state.monster.map((monsterName) => {
           return (
             <div key={this.state.monster.id}>
