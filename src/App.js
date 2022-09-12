@@ -13,7 +13,13 @@ class App extends React.Component {
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => response.json() )
-    .then((users) => console.log(users))
+    .then((users) => this.setState( 
+    ()=>{
+      return {monster:users}//now monster points to user and have all of its properties
+    },
+    ()=>{
+      console.log(this.state); //callback function 
+    }))
   }
   // ---------------------
   render() {
@@ -23,6 +29,7 @@ class App extends React.Component {
           return (
             <div key={this.state.monster.id}>
               <h1>{monsterName.name}</h1>
+              <h1>{monsterName.id}</h1>
             </div>
           );
         })}
