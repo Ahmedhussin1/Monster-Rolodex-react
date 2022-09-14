@@ -48,7 +48,7 @@ class App extends React.Component {
         <SearchBox
           onchangeHandler={onSearch}
           placeholder="search monster"
-          className="search-box"
+          className="monster-search-box"
         />
         <CardList monsters={filteredMonster} />
       </div>
