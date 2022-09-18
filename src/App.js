@@ -1,10 +1,10 @@
-import { component } from "react";
+import { Component } from "react";
 import React from "react";
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 import "./App.css";
 
-class App extends React.Component {
+class App extends Component {//using class component
   constructor() {
     super();
     this.state = {
